@@ -1,0 +1,66 @@
+.lookbook-with-modal {
+  & .lookbook-with-modal-wrapper {
+    background: grey;
+    display: flex;
+    width: 100%;
+  }
+
+  & .left-column--right {
+    flex-direction: row-reverse;
+  }
+
+  & .col {
+    flex: 1;
+  }
+
+  & .right-column {
+    background: yellow;
+    max-width: calc(var(--page-width) / 2);
+  }
+
+  & .image-wrapper {
+    position: relative;
+
+    & .lookbook-image {
+      width: 100%;
+      object-fit: cover;
+    }
+
+    & .related-product {
+      position: absolute;
+      top: 0;
+      left: 20px;
+    }
+
+    & .related-product:nth-child(1) {
+      top: 0;
+    }
+    & .related-product:nth-child(2) {
+      top: 40px;
+    }
+    & .related-product:nth-child(3) {
+      top: 80px;
+    }
+    & .related-product:nth-child(4) {
+      top: 120px;
+    }
+    & .related-product:nth-child(5) {
+      top: 160px;
+    }
+    & .related-product:nth-child(6) {
+      top: 200px;
+    }
+    & .related-product:nth-child(7) {
+      top: 240px;
+    }
+    & .related-product:nth-child(8) {
+      top: 280px;
+    }
+    & .related-product:nth-child(9) {
+      top: 320px;
+    }
+    & .related-product:nth-child(10) {
+      top: 360px;
+    }
+  }
+}

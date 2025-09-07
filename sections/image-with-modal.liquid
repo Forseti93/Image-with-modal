@@ -1,0 +1,149 @@
+{{ 'lookbook-with-modal.css' | asset_url | stylesheet_tag }}
+
+{% assign blocks_types = section.blocks | map: 'type' | join %}
+
+{%- style -%}
+  .section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="lookbook-with-modal-wrapper section-{{ section.id }} {% if section.settings.look_image_position == "right" %}left-column--right{% endif %} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+  <div class="left-column col">
+    <div class="image-wrapper">
+      {{ section.settings.look_image | image_url: width: 1200 | image_tag: class: 'lookbook-image' }}
+      {% for block in section.blocks -%}
+        {%- case block.type %}
+          {% when 'related_product' %}
+            <div
+              class="related-product"
+              {{ block.shopify_attributes }}
+            >
+              <a href="{{- block.settings.related_product_id.url -}}" class="product-link">
+                <h3>{{ block.settings.related_product_id.title }}</h3>
+              </a>
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+    <button class="button">Shop the look</button>
+  </div>
+  {% if blocks_types contains 'content_description' %}
+    <div class="right-column col">
+      {% for block in section.blocks %}
+        {% case block.type %}
+          {% when 'content_description' -%}
+            <div class="content-description" {{ block.shopify_attributes }}>
+              {{ block.settings.content_description }}
+            </div>
+        {% endcase %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "Lookbook",
+  "tag": "section",
+  "class": "lookbook-with-modal",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section layout"
+    },
+    {
+      "type": "select",
+      "label": "Look image position",
+      "id": "look_image_position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Look Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "look_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "related_product",
+      "name": "Related product",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "product",
+          "id": "related_product_id",
+          "label": "Related product"
+        }
+      ]
+    },
+    {
+      "type": "content_description",
+      "name": "Description",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "content_description",
+          "label": "Content description",
+          "default": "<p>Description</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Lookbook"
+    }
+  ]
+}
+{% endschema %}

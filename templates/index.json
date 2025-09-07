@@ -37,9 +37,52 @@
         "padding_top": 44,
         "padding_bottom": 36
       }
+    },
+    "image_with_modal_aFyhQw": {
+      "type": "image-with-modal",
+      "blocks": {
+        "related_product_EHimR3": {
+          "type": "related_product",
+          "settings": {
+            "related_product_id": "blue-silk-tuxedo"
+          }
+        },
+        "related_product_JrjgVi": {
+          "type": "related_product",
+          "settings": {
+            "related_product_id": "classic-black-tuxedo-trousers"
+          }
+        },
+        "related_product_G7zhWj": {
+          "type": "related_product",
+          "settings": {
+            "related_product_id": "patent-leather-oxford-shoes"
+          }
+        },
+        "content_description_EQifmf": {
+          "type": "content_description",
+          "settings": {
+            "content_description": "<h2>Description</h2><p>The definitive formal footwear. These Oxford shoes are crafted from high-shine patent leather for a polished, sophisticated look. The closed lacing system and sleek profile make them the perfect choice for any black-tie event.</p><ol><li>Blue Silk Tuxedo</li><li>Classic Black Tuxedo Trousers</li><li>Patent Leather Oxford Shoes</li></ol>"
+          }
+        }
+      },
+      "block_order": [
+        "related_product_EHimR3",
+        "related_product_JrjgVi",
+        "related_product_G7zhWj",
+        "content_description_EQifmf"
+      ],
+      "name": "Lookbook",
+      "settings": {
+        "look_image_position": "left",
+        "look_image": "shopify://shop_images/lookbook-set-1.png",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "featured_collection"
+    "featured_collection",
+    "image_with_modal_aFyhQw"
   ]
 }
