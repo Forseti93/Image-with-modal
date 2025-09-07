@@ -372,5 +372,15 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+    
+    {% if content_for_layout contains "tippy-js" %}
+      <!-- Development -->
+      {% comment %} <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.min.js" defer="defer"></script>
+      <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js" defer="defer"></script> {% endcomment %}
+
+      <!-- Production -->
+      <script src="https://unpkg.com/@popperjs/core@2" defer="defer"></script>
+      <script src="https://unpkg.com/tippy.js@6" defer="defer"></script>
+    {% endif %}
   </body>
 </html>

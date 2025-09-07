@@ -1,3 +1,4 @@
+<div style="display:none;">tippy-js</div>
 {{ 'lookbook-with-modal.css' | asset_url | stylesheet_tag }}
 
 {% assign blocks_types = section.blocks | map: 'type' | join %}
@@ -23,14 +24,16 @@
       {% for block in section.blocks -%}
         {%- case block.type %}
           {% when 'related_product' %}
-            <div
-              class="related-product"
+            <a
               {{ block.shopify_attributes }}
+              id="{{ block.id }}"
+              class="related-product"
+              href="{{- block.settings.related_product_id.url -}}"
+              aria-label="{{ block.settings.related_product_id.title }}"
+              target="_blank"
+              style="top: {{  block.settings.top_perc }}%; left: {{  block.settings.left_perc }}%;"
             >
-              <a href="{{- block.settings.related_product_id.url -}}" class="product-link">
-                <h3>{{ block.settings.related_product_id.title }}</h3>
-              </a>
-            </div>
+            </a>
         {% endcase %}
       {% endfor %}
     </div>
@@ -48,6 +51,17 @@
       {% endfor %}
     </div>
   {% endif %}
+  <script>
+    window.document.addEventListener('DOMContentLoaded', function () {
+      {% for block in section.blocks %}
+        {% if block.type == 'related_product' %}
+          tippy('#{{ block.id }}', {
+            content: '{{ block.settings.related_product_id.title }}',
+          });
+        {% endif %}
+      {% endfor %}
+    });
+  </script>
 </div>
 
 {% schema %}
@@ -123,6 +137,28 @@
           "type": "product",
           "id": "related_product_id",
           "label": "Related product"
+        },
+        {
+          "type": "range",
+          "id": "top_perc",
+          "label": "Space from top",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 10,
+          "info": "*Replace the default position. Items can now overlap."
+        },
+        {
+          "type": "range",
+          "id": "left_perc",
+          "label": "Space from left",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "default": 10,
+          "info": "*Replace the default position. Items can now overlap."
         }
       ]
     },

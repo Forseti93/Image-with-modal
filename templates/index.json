@@ -44,19 +44,25 @@
         "related_product_EHimR3": {
           "type": "related_product",
           "settings": {
-            "related_product_id": "blue-silk-tuxedo"
+            "related_product_id": "blue-silk-tuxedo",
+            "top_perc": 29,
+            "left_perc": 53
           }
         },
         "related_product_JrjgVi": {
           "type": "related_product",
           "settings": {
-            "related_product_id": "classic-black-tuxedo-trousers"
+            "related_product_id": "classic-black-tuxedo-trousers",
+            "top_perc": 70,
+            "left_perc": 40
           }
         },
         "related_product_G7zhWj": {
           "type": "related_product",
           "settings": {
-            "related_product_id": "patent-leather-oxford-shoes"
+            "related_product_id": "patent-leather-oxford-shoes",
+            "top_perc": 92,
+            "left_perc": 54
           }
         },
         "content_description_EQifmf": {
