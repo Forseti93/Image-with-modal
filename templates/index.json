@@ -94,10 +94,79 @@
         "padding_top": 0,
         "padding_bottom": 60
       }
+    },
+    "image_with_modal_hQJyic": {
+      "type": "image-with-modal",
+      "blocks": {
+        "related_product_zhHqgL": {
+          "type": "related_product",
+          "settings": {
+            "related_product_id": "glasses-0-variants",
+            "y_perc": -210,
+            "x_perc": 130,
+            "bg_color": "#363600",
+            "bord_color": "#fbce2a"
+          }
+        },
+        "related_product_zNBdj6": {
+          "type": "related_product",
+          "settings": {
+            "related_product_id": "red-sports-tee",
+            "y_perc": 40,
+            "x_perc": 80,
+            "bg_color": "#204b90",
+            "bord_color": "#ff7c4c"
+          }
+        },
+        "related_product_eHkcyq": {
+          "type": "related_product",
+          "settings": {
+            "related_product_id": "navy-sport-jacket",
+            "y_perc": 150,
+            "x_perc": -50,
+            "bg_color": "#ff7c4c",
+            "bord_color": "#204b90"
+          }
+        },
+        "related_product_UPWJ8g": {
+          "type": "related_product",
+          "settings": {
+            "related_product_id": "patent-leather-oxford-shoes",
+            "y_perc": 350,
+            "x_perc": 200,
+            "bg_color": "#ffffff",
+            "bord_color": "#121212"
+          }
+        },
+        "content_description_pCGYLV": {
+          "type": "content_description",
+          "settings": {
+            "content_description": "<h2><strong>*Add your description*</strong></h2>"
+          }
+        }
+      },
+      "block_order": [
+        "related_product_zhHqgL",
+        "related_product_zNBdj6",
+        "related_product_eHkcyq",
+        "related_product_UPWJ8g",
+        "content_description_pCGYLV"
+      ],
+      "name": "Lookbook",
+      "settings": {
+        "look_image_position": "right",
+        "bg_color": "linear-gradient(40deg, rgba(220, 235, 255, 1), rgba(255, 255, 255, 1) 22%)",
+        "description_position_vertically": "center",
+        "description_position_horizontally": "center",
+        "look_image": "shopify://shop_images/young-female-models-denim_925x_5717bf98-ae8d-48ca-a736-31499f8b46d4.jpg",
+        "padding_top": 0,
+        "padding_bottom": 60
+      }
     }
   },
   "order": [
     "featured_collection",
-    "image_with_modal_aFyhQw"
+    "image_with_modal_aFyhQw",
+    "image_with_modal_hQJyic"
   ]
 }
