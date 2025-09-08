@@ -1,5 +1,12 @@
 <div style="display:none;">tippy-js</div>
 {{ 'lookbook-with-modal.css' | asset_url | stylesheet_tag }}
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+{{ 'section-featured-product.css' | asset_url | stylesheet_tag }}
+{{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+{{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+{{ 'component-rating.css' | asset_url | stylesheet_tag }}
+{{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
 
 {% assign blocks_types = section.blocks | map: 'type' | join %}
 {% assign section_bg_color = 'background: ' | append: section.settings.bg_color | append: ';' %}
@@ -34,9 +41,21 @@
     <div class="left-column col">
       <div class="image-wrapper">
         {{ section.settings.look_image | image_url: width: 1200 | image_tag: class: 'lookbook-image' }}
+        {% assign product_urls = '' %}
+        {% comment %} {% assign product_ids_double_comma_separated = '' %} {% endcomment %}
         {% for block in section.blocks -%}
           {%- case block.type %}
             {% when 'related_product' %}
+              {% assign product_urls = product_urls | append: block.settings.related_product_id.url | append: ',, ' %}
+              {% comment %}
+                {% assign product_ids_double_comma_separated = product_ids_double_comma_separated
+                  | append: ',, '
+                  | append: 'quick-add-lookbook-'
+                  | append: section.id
+                  | append: '-'
+                  | append: block.settings.related_product_id.id
+                %}
+              {% endcomment %}
               <a
                 {{ block.shopify_attributes }}
                 id="{{ block.id }}"
@@ -67,7 +86,49 @@
       </div>
     {% endif %}
   </div>
-  <button class="button">Shop the look</button>
+
+  <modal-opener data-modal="#QuickAddLookbook-{{ section.id }}">
+    <button
+      type="button"
+      name="add"
+      class="quick-add-lookbook__submit button"
+      aria-haspopup="dialog"
+      data-products-urls="{{ product_urls }}"
+    >
+      Shop The Look
+      {%- render 'loading-spinner' -%}
+    </button>
+  </modal-opener>
+
+  <quick-add-lookbook-modal id="QuickAddLookbook-{{ section.id }}" class="quick-add-lookbook-modal quick-add-modal">
+    <div
+      role="dialog"
+      aria-label="Shop The Look"
+      aria-modal="true"
+      class="quick-add-lookbook-modal__content global-settings-popup quick-add-modal__content-info"
+      tabindex="-1"
+    >
+      <button
+        id="ModalClose-QuickAddLookbook-{{ section.id }}"
+        type="button"
+        class="quick-add-lookbook-modal__toggle quick-add-modal__toggle"
+        aria-label="{{ 'accessibility.close' | t }}"
+      >
+        X
+      </button>
+      <div id="QuickAddLookbookInfo-{{ section.id }}" class="quick-add-lookbook-modal__content-info">
+        {%- comment -%} Product info elements will be injected here by JavaScript {%- endcomment -%}
+      </div>
+    </div>
+  </quick-add-lookbook-modal>
+
+  <script src="{{ 'quick-add-lookbook-modal.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'pickup-availability.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'share.js' | asset_url }}" defer="defer"></script>
 
   <script>
     window.document.addEventListener('DOMContentLoaded', function () {
