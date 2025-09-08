@@ -27,10 +27,10 @@
 {%- endstyle -%}
 
 <div
-  class="lookbook-with-modal-wrapper section-{{ section.id }} {% if section.settings.look_image_position == "right" %}left-column--right{% endif %} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+  class="lookbook-with-modal-wrapper section-{{ section.id }} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
   style="{{ section_bg_color }}"
 >
-  <div class="image-description-wrapper">
+  <div class="image-description-wrapper  {% if section.settings.look_image_position == "right" %}left-column--right{% endif %}">
     <div class="left-column col">
       <div class="image-wrapper">
         {{ section.settings.look_image | image_url: width: 1200 | image_tag: class: 'lookbook-image' }}
