@@ -45,30 +45,36 @@
           "type": "related_product",
           "settings": {
             "related_product_id": "blue-silk-tuxedo",
-            "top_perc": 29,
-            "left_perc": 53
+            "y_perc": -170,
+            "x_perc": 30,
+            "bg_color": "#000000",
+            "bord_color": "#ffffff"
           }
         },
         "related_product_JrjgVi": {
           "type": "related_product",
           "settings": {
             "related_product_id": "classic-black-tuxedo-trousers",
-            "top_perc": 70,
-            "left_perc": 40
+            "y_perc": 150,
+            "x_perc": -50,
+            "bg_color": "#204b90",
+            "bord_color": "#ffffff"
           }
         },
         "related_product_G7zhWj": {
           "type": "related_product",
           "settings": {
             "related_product_id": "patent-leather-oxford-shoes",
-            "top_perc": 92,
-            "left_perc": 54
+            "y_perc": 350,
+            "x_perc": 30,
+            "bg_color": "#204b90",
+            "bord_color": "#ffffff"
           }
         },
         "content_description_EQifmf": {
           "type": "content_description",
           "settings": {
-            "content_description": "<h2>Description</h2><p>The definitive formal footwear. These Oxford shoes are crafted from high-shine patent leather for a polished, sophisticated look. The closed lacing system and sleek profile make them the perfect choice for any black-tie event.</p><ol><li>Blue Silk Tuxedo</li><li>Classic Black Tuxedo Trousers</li><li>Patent Leather Oxford Shoes</li></ol>"
+            "content_description": "<h2><strong>A Look That Leaves a Lasting Impression</strong></h2><p>Crafted for the modern gentleman who commands attention, this ensemble ensures you make an unforgettable entrance. It’s more than an outfit—it’s a statement of confidence and refined taste, perfect for life's most memorable moments.</p><p><strong>Ideal For:</strong> Black-Tie Galas, Weddings, Charity Dinners, New Year's Eve Celebrations, and Red Carpet Events.</p><p><strong>Shop the Look:</strong></p><ol><li><a href=\"/products/blue-silk-tuxedo\" target=\"_blank\" title=\"Blue Silk Tuxedo\"><strong>Blue Silk Tuxedo</strong></a>: Make a statement with this stunning blue silk tuxedo jacket, featuring a subtle pattern for a touch of modern elegance at any formal event.</li><li><a href=\"/products/classic-black-tuxedo-trousers\" target=\"_blank\" title=\"Classic Black Tuxedo Trousers\"><strong>Classic Black Tuxedo Trousers</strong></a>: These impeccably tailored black trousers create a sharp, classic silhouette, providing the perfect foundation for your formalwear.</li><li><a href=\"/products/patent-leather-oxford-shoes\" target=\"_blank\" title=\"Patent Leather Oxford Shoes\"><strong>Patent Leather Oxford Shoes</strong></a>: Complete your ensemble with the ultimate in formal footwear. The high-shine patent leather of these Oxford shoes adds a polished, sophisticated finish.</li></ol>"
           }
         }
       },
@@ -81,9 +87,12 @@
       "name": "Lookbook",
       "settings": {
         "look_image_position": "left",
+        "bg_color": "linear-gradient(215deg, rgba(220, 235, 255, 1), rgba(255, 255, 255, 1) 22%)",
+        "description_position_vertically": "center",
+        "description_position_horizontally": "center",
         "look_image": "shopify://shop_images/lookbook-set-1.png",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 0,
+        "padding_bottom": 60
       }
     }
   },

@@ -2,6 +2,15 @@
 {{ 'lookbook-with-modal.css' | asset_url | stylesheet_tag }}
 
 {% assign blocks_types = section.blocks | map: 'type' | join %}
+{% assign section_bg_color = 'background: ' | append: section.settings.bg_color | append: ';' %}
+{% assign section_description_position_y = 'align-items: '
+  | append: section.settings.description_position_vertically
+  | append: ';'
+%}
+{% assign section_description_position_x = 'justify-content: '
+  | append: section.settings.description_position_horizontally
+  | append: ';'
+%}
 
 {%- style -%}
   .section-{{ section.id }} {
@@ -9,7 +18,7 @@
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 1024px) {
     .section-{{ section.id }} {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
@@ -17,46 +26,56 @@
   }
 {%- endstyle -%}
 
-<div class="lookbook-with-modal-wrapper section-{{ section.id }} {% if section.settings.look_image_position == "right" %}left-column--right{% endif %} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-  <div class="left-column col">
-    <div class="image-wrapper">
-      {{ section.settings.look_image | image_url: width: 1200 | image_tag: class: 'lookbook-image' }}
-      {% for block in section.blocks -%}
-        {%- case block.type %}
-          {% when 'related_product' %}
-            <a
-              {{ block.shopify_attributes }}
-              id="{{ block.id }}"
-              class="related-product"
-              href="{{- block.settings.related_product_id.url -}}"
-              aria-label="{{ block.settings.related_product_id.title }}"
-              target="_blank"
-              style="top: {{  block.settings.top_perc }}%; left: {{  block.settings.left_perc }}%;"
-            >
-            </a>
-        {% endcase %}
-      {% endfor %}
+<div
+  class="lookbook-with-modal-wrapper section-{{ section.id }} {% if section.settings.look_image_position == "right" %}left-column--right{% endif %} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+  style="{{ section_bg_color }}"
+>
+  <div class="image-description-wrapper">
+    <div class="left-column col">
+      <div class="image-wrapper">
+        {{ section.settings.look_image | image_url: width: 1200 | image_tag: class: 'lookbook-image' }}
+        {% for block in section.blocks -%}
+          {%- case block.type %}
+            {% when 'related_product' %}
+              <a
+                {{ block.shopify_attributes }}
+                id="{{ block.id }}"
+                class="related-product"
+                href="{{- block.settings.related_product_id.url -}}"
+                aria-label="{{ block.settings.related_product_id.title }}"
+                target="_blank"
+                style="top: calc(50% + {{  block.settings.y_perc }}px); left: calc(50% + {{  block.settings.x_perc }}px); --bg-col: {{ block.settings.bg_color }}; --bord-col: {{ block.settings.bord_color }}; "
+              >
+              </a>
+          {% endcase %}
+        {% endfor %}
+      </div>
     </div>
-    <button class="button">Shop the look</button>
+    {% if blocks_types contains 'content_description' %}
+      <div
+        class="right-column col"
+        style="{{ section_description_position_y }} {{ section_description_position_x }}"
+      >
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'content_description' -%}
+              <div class="content-description" {{ block.shopify_attributes }}>
+                {{ block.settings.content_description }}
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
+    {% endif %}
   </div>
-  {% if blocks_types contains 'content_description' %}
-    <div class="right-column col">
-      {% for block in section.blocks %}
-        {% case block.type %}
-          {% when 'content_description' -%}
-            <div class="content-description" {{ block.shopify_attributes }}>
-              {{ block.settings.content_description }}
-            </div>
-        {% endcase %}
-      {% endfor %}
-    </div>
-  {% endif %}
+  <button class="button">Shop the look</button>
+
   <script>
     window.document.addEventListener('DOMContentLoaded', function () {
       {% for block in section.blocks %}
         {% if block.type == 'related_product' %}
           tippy('#{{ block.id }}', {
             content: '{{ block.settings.related_product_id.title }}',
+            placement: 'bottom',
           });
         {% endif %}
       {% endfor %}
@@ -94,13 +113,59 @@
       "default": "left"
     },
     {
+      "type": "color_background",
+      "label": "Background color",
+      "id": "bg_color"
+    },
+    {
+      "type": "select",
+      "label": "Description position vertically",
+      "id": "description_position_vertically",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Middle"
+        },
+        {
+          "value": "flex-end",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "label": "Description position horizontally",
+      "id": "description_position_horizontally",
+      "options": [
+        {
+          "value": "start",
+          "label": "Top"
+        },
+        {
+          "value": "center",
+          "label": "Middle"
+        },
+        {
+          "value": "end",
+          "label": "Bottom"
+        }
+      ],
+      "default": "center"
+    },
+    {
       "type": "header",
       "content": "Look Image"
     },
     {
       "type": "image_picker",
       "id": "look_image",
-      "label": "Image"
+      "label": "Image",
+      "info": "*Tested with horizontal image, h/w ~ 1/1.5"
     },
     {
       "type": "header",
@@ -133,32 +198,44 @@
       "name": "Related product",
       "limit": 6,
       "settings": [
+        { "type": "paragraph", "content": "*By default, all products are centered and overlapping." },
         {
           "type": "product",
           "id": "related_product_id",
           "label": "Related product"
         },
+        { "type": "header", "content": "Product's location" },
         {
           "type": "range",
-          "id": "top_perc",
-          "label": "Space from top",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "%",
-          "default": 10,
-          "info": "*Replace the default position. Items can now overlap."
+          "id": "y_perc",
+          "label": "Space from the center, vertically",
+          "min": -500,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "default": 0
         },
         {
           "type": "range",
-          "id": "left_perc",
-          "label": "Space from left",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "%",
-          "default": 10,
-          "info": "*Replace the default position. Items can now overlap."
+          "id": "x_perc",
+          "label": "Space from the center, horizontally",
+          "min": -500,
+          "max": 500,
+          "step": 10,
+          "unit": "px",
+          "default": 0
+        },
+        {
+          "type": "color",
+          "label": "Background and shadows color",
+          "id": "bg_color",
+          "default": "#000"
+        },
+        {
+          "type": "color",
+          "label": "Border color",
+          "id": "bord_color",
+          "default": "#fff"
         }
       ]
     },

@@ -1,8 +1,30 @@
 .lookbook-with-modal {
+  --gap-from-1024: 60px;
+  --gap-before-1024: 30px;
+
   & .lookbook-with-modal-wrapper {
-    background: grey;
+    background: var(--lookbook-bg-col);
+  }
+
+  & .image-description-wrapper {
     display: flex;
-    width: 100%;
+
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+    }
+  }
+
+  & .left-column {
+    text-align: center;
+  }
+
+  & .button {
+    display: block;
+    margin: var(--gap-from-1024) auto 0;
+
+    @media screen and (max-width: 1024px) {
+      margin-top: var(--gap-before-1024);
+    }
   }
 
   & .left-column--right {
@@ -12,15 +34,43 @@
   & .col {
     min-width: 50%;
     max-width: 50%;
+    @media screen and (max-width: 1024px) {
+      min-width: unset;
+      max-width: unset;
+    }
   }
 
   & .right-column {
-    background: yellow;
     max-width: calc(var(--page-width) / 2);
+    display: flex;
+    padding: var(--gap-from-1024);
+
+    @media screen and (max-width: 1024px) {
+      max-width: unset;
+      padding: var(--gap-before-1024);
+    }
+  }
+
+  & .content-description {
+    > *:first-child {
+      margin-top: 0;
+    }
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+
+    & a {
+      color: inherit;
+    }
   }
 
   & .image-wrapper {
     position: relative;
+
+    & img {
+      display: block;
+    }
 
     & .lookbook-image {
       width: 100%;
@@ -30,44 +80,18 @@
     & .related-product {
       --offset-value: 40px;
       position: absolute;
-      /* top: calc(var(--i) * var(--offset-value)); */
-      /* left: 50%; */
-      /* transform: translateX(-50%); */
-      background: red;
+      background: var(--bg-col);
+      border: 2px solid var(--bord-col);
+      box-shadow: 0px 0px 20px 6px var(--bg-col);
+      transform: translate(-50%, -50%);
       width: 20px;
       height: 20px;
       border-radius: 300px;
+      transition: box-shadow 0.2s ease-in-out;
     }
 
-    /* & .related-product:nth-child(1) {
-      --i: 0;
+    & .related-product:hover {
+      box-shadow: 0px 0px 6px 6px var(--bg-col);
     }
-    & .related-product:nth-child(2) {
-      --i: 1;
-    }
-    & .related-product:nth-child(3) {
-      --i: 2;
-    }
-    & .related-product:nth-child(4) {
-      --i: 3;
-    }
-    & .related-product:nth-child(5) {
-      --i: 4;
-    }
-    & .related-product:nth-child(6) {
-      --i: 5;
-    }
-    & .related-product:nth-child(7) {
-      --i: 6;
-    }
-    & .related-product:nth-child(8) {
-      --i: 7;
-    }
-    & .related-product:nth-child(9) {
-      --i: 8;
-    }
-    & .related-product:nth-child(10) {
-      --i: 9;
-    } */
   }
 }
